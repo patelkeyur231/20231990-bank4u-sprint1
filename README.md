@@ -35,7 +35,34 @@ missing .NET 8 SDK, accept it (or install from https://dotnet.microsoft.com).
 20231990_Keyur_BankSprint1.sln
 BankSprint1/
   BankSprint1.csproj
-  Program.cs                 entry point
+  Program.cs                 entry point# Bank4U — Sprint 1 (IT7742 Assignment 1)
+
+Student ID: 20231990
+Student: Keyur
+Solution: `20231990_Keyur_BankSprint1`
+
+## What this is
+
+Sprint 1 prototype of a bank account management system: a C# domain model
+(Customer/StaffCustomer, and an Everyday/Investment/Omni Account hierarchy)
+plus a Windows Forms GUI ("Bank4U") that exercises it.
+
+## How to open and run
+
+1. Install **Visual Studio 2022** (Community edition is free) with the
+   **.NET desktop development** workload ticked during install.
+2. Double-click `20231990_Keyur_BankSprint1.sln` to open the solution.
+3. Press **F5** (or the green ▶ Start button) to build and run.
+4. In the app: pick a customer from the dropdown (top-left), pick an account
+   type from the list below it, enter an amount, and use Deposit / Withdraw /
+   Calculate Interest. Watch the balance, feedback message, and transaction
+   history update.
+
+No NuGet packages are required — it targets `net8.0-windows` using only the
+built-in Windows Forms libraries. If Visual Studio prompts to install a
+missing .NET 8 SDK, accept it (or install from https://dotnet.microsoft.com).
+
+## Project structure
   Assets/logo.png             Bank4U logo used in the header
   Models/
     Person.cs                 abstract base (Name, ContactDetails)
