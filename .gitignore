@@ -1,0 +1,10 @@
+## Visual Studio / .NET build artifacts - never commit these
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+
+## OS junk
+.DS_Store
+Thumbs.db
