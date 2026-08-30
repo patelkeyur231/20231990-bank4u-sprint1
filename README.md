@@ -93,3 +93,14 @@ link if you name the repo differently)*
 
 See `GITHUB_GUIDE.md` for the exact steps used to create the repo, add the
 lecturer as a collaborator, and the commit history for this Sprint.
+
+## Testing performed
+
+- Deposited and withdrew from Everyday, Investment, and Omni accounts for
+  both a regular customer and a staff customer, confirming each account
+  type's fee/interest/overdraft rules behave as expected.
+- Compared a withdrawal of the same amount on a regular customer's account
+  against a staff customer's account, confirming the staff customer's fee
+  is exactly 50% of the regular customer's fee.
+- Verified interest calculation on the Omni account only applies to the
+  portion of the balance above $1,000, per the assignment's interest rule.
