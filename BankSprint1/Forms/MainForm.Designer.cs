@@ -37,6 +37,7 @@ namespace BankSprint1.Forms
             lblSelectAccount = new Label();
             cmbCustomer = new ComboBox();
             lblLoggedInAs = new Label();
+            btnManageCustomers = new Button();
             panelMain = new Panel();
             panelTransaction = new Panel();
             btnCalculateInterest = new Button();
@@ -99,6 +100,7 @@ namespace BankSprint1.Forms
             // panelSidebar
             // 
             panelSidebar.BackColor = Color.White;
+            panelSidebar.Controls.Add(btnManageCustomers);
             panelSidebar.Controls.Add(lstAccounts);
             panelSidebar.Controls.Add(lblSelectAccount);
             panelSidebar.Controls.Add(cmbCustomer);
@@ -153,7 +155,23 @@ namespace BankSprint1.Forms
             lblLoggedInAs.Size = new Size(113, 20);
             lblLoggedInAs.TabIndex = 0;
             lblLoggedInAs.Text = "LOGGED IN AS";
-            // 
+            //
+            // btnManageCustomers
+            //
+            btnManageCustomers.Cursor = Cursors.Hand;
+            btnManageCustomers.FlatAppearance.BorderColor = Color.Navy;
+            btnManageCustomers.FlatAppearance.BorderSize = 2;
+            btnManageCustomers.FlatStyle = FlatStyle.Flat;
+            btnManageCustomers.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnManageCustomers.ForeColor = Color.Navy;
+            btnManageCustomers.Location = new Point(20, 270);
+            btnManageCustomers.Name = "btnManageCustomers";
+            btnManageCustomers.Size = new Size(220, 36);
+            btnManageCustomers.TabIndex = 4;
+            btnManageCustomers.Text = "Manage Customers";
+            btnManageCustomers.UseVisualStyleBackColor = true;
+            btnManageCustomers.Click += btnManageCustomers_Click;
+            //
             // panelMain
             // 
             panelMain.Controls.Add(lstTransactionHistory);
@@ -384,6 +402,7 @@ namespace BankSprint1.Forms
         private ComboBox cmbCustomer;
         private Label lblSelectAccount;
         private ListBox lstAccounts;
+        private Button btnManageCustomers;
         private Panel panelMain;
         private Panel panelAccountCard;
         private Label lblLastTransactionValue;

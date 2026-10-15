@@ -1,9 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSprint1", "BankSprint1\BankSprint1.csproj", "{4629A67A-51DE-444E-B2C3-328D41164F77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSprint1.Tests", "BankSprint1.Tests\BankSprint1.Tests.csproj", "{86E2BB99-1224-8653-E561-B885211A9B6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +18,10 @@ Global
 		{4629A67A-51DE-444E-B2C3-328D41164F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4629A67A-51DE-444E-B2C3-328D41164F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4629A67A-51DE-444E-B2C3-328D41164F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E2BB99-1224-8653-E561-B885211A9B6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E2BB99-1224-8653-E561-B885211A9B6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E2BB99-1224-8653-E561-B885211A9B6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E2BB99-1224-8653-E561-B885211A9B6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

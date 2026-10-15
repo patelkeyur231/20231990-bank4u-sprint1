@@ -1,0 +1,170 @@
+digraph UMLClassDiagram {
+    graph [rankdir=TB, splines=spline, nodesep=0.7, ranksep=0.9, bgcolor="white", fontname="Segoe UI"];
+    node [shape=plaintext, fontname="Segoe UI"];
+    edge [fontname="Segoe UI", fontsize=12, color="#333333"];
+
+    /* ---------- Person hierarchy ---------- */
+
+    Person [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B><I>Person</I> (abstract)</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">- name : string</TD></TR>
+  <TR><TD ALIGN="LEFT">- contactDetails : string</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Person(name : string, contactDetails : string)</TD></TR>
+  <TR><TD ALIGN="LEFT">+ Name : string</TD></TR>
+  <TR><TD ALIGN="LEFT">+ ContactDetails : string</TD></TR>
+  <TR><TD ALIGN="LEFT"><I>+ GetProfileSummary() : string {abstract}</I></TD></TR>
+</TABLE>>];
+
+    Customer [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>Customer (Model)</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">- customerNumber : string</TD></TR>
+  <TR><TD ALIGN="LEFT">- accounts : List&lt;Account&gt;</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Customer(customerNumber, name, contactDetails)</TD></TR>
+  <TR><TD ALIGN="LEFT">+ CustomerNumber : string</TD></TR>
+  <TR><TD ALIGN="LEFT">+ Accounts : List&lt;Account&gt;</TD></TR>
+  <TR><TD ALIGN="LEFT">+ FeeDiscountRate : decimal {virtual}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ RoleLabel : string {virtual}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ AddAccount(account : Account) : void</TD></TR>
+  <TR><TD ALIGN="LEFT">+ PerformDeposit(account, amount : decimal) : string</TD></TR>
+  <TR><TD ALIGN="LEFT">+ PerformWithdrawal(account, amount : decimal) : string</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;{catches BankingException}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetProfileSummary() : string {override}</TD></TR>
+</TABLE>>];
+
+    StaffCustomer [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>StaffCustomer</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">(no new fields)</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ StaffCustomer(customerNumber, name, contactDetails)</TD></TR>
+  <TR><TD ALIGN="LEFT">+ FeeDiscountRate : decimal {override, = 0.5}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ RoleLabel : string {override}</TD></TR>
+</TABLE>>];
+
+    /* ---------- Controller (Sprint 2) ---------- */
+
+    CustomerController [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFFBEF" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>CustomerController (Controller)</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">- customers : List&lt;Customer&gt;</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ CustomerController()</TD></TR>
+  <TR><TD ALIGN="LEFT">+ CreateCustomer(customerNumber : string, name : string,</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;contactDetails : string, isStaff : bool) : Customer</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetAllCustomers() : List&lt;Customer&gt;</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetCustomerByNumber(customerNumber : string) : Customer</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetCustomerByIndex(index : int) : Customer</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetCustomerCount() : int</TD></TR>
+  <TR><TD ALIGN="LEFT">+ UpdateCustomerDetails(customerNumber : string,</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;newName : string, newContactDetails : string) : bool</TD></TR>
+  <TR><TD ALIGN="LEFT">+ DeleteCustomer(customerNumber : string) : bool</TD></TR>
+  <TR><TD ALIGN="LEFT">+ AddAccountToCustomer(customerNumber : string,</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;account : Account) : bool</TD></TR>
+</TABLE>>];
+
+    /* ---------- Account hierarchy ---------- */
+
+    Account [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B><I>Account</I> (abstract)</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT"># balance : decimal</TD></TR>
+  <TR><TD ALIGN="LEFT">- accountNumber : string</TD></TR>
+  <TR><TD ALIGN="LEFT">- lastTransactionStatus : string</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Account(accountNumber, openingBalance : decimal)</TD></TR>
+  <TR><TD ALIGN="LEFT"><I>+ AccountTypeName : string {abstract}</I></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Deposit(amount : decimal) : void {virtual}</TD></TR>
+  <TR><TD ALIGN="LEFT"><I>+ Withdraw(amount, feeDiscountRate : decimal) : void</I></TD></TR>
+  <TR><TD ALIGN="LEFT"><I>&#160;&#160;{abstract, throws BankingException}</I></TD></TR>
+  <TR><TD ALIGN="LEFT"><I>+ CalculateInterest() : decimal {abstract}</I></TD></TR>
+  <TR><TD ALIGN="LEFT">+ ApplyInterest() : decimal {virtual}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetExtraInfo() : string {virtual}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ ToString() : string {virtual}</TD></TR>
+</TABLE>>];
+
+    EverydayAccount [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>EverydayAccount</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">(no new fields)</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Withdraw(...) {override, throws InsufficientFundsException}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ CalculateInterest() {override, = 0}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetExtraInfo() {override}</TD></TR>
+</TABLE>>];
+
+    InvestmentAccount [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>InvestmentAccount</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">- interestRate : decimal</TD></TR>
+  <TR><TD ALIGN="LEFT">- failedTransactionFee : decimal</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Withdraw(...) {override, no overdraft, charges fee,</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;throws InsufficientFundsException}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ CalculateInterest() {override}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetExtraInfo() {override}</TD></TR>
+</TABLE>>];
+
+    OmniAccount [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F5F5F5" COLOR="#999999">
+  <TR><TD BGCOLOR="#000080" ALIGN="CENTER"><FONT COLOR="white"><B>OmniAccount</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">- interestRate : decimal</TD></TR>
+  <TR><TD ALIGN="LEFT">- overdraftLimit : decimal</TD></TR>
+  <TR><TD ALIGN="LEFT">- failedTransactionFee : decimal</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ Withdraw(...) {override, allows overdraft,</TD></TR>
+  <TR><TD ALIGN="LEFT">&#160;&#160;throws OverdraftLimitExceededException}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ CalculateInterest() {override, on balance &gt; $1,000}</TD></TR>
+  <TR><TD ALIGN="LEFT">+ GetExtraInfo() {override}</TD></TR>
+</TABLE>>];
+
+    /* ---------- Exceptions (Sprint 2) ---------- */
+
+    BankingException [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFF0F0" COLOR="#999999">
+  <TR><TD BGCOLOR="#8B0000" ALIGN="CENTER"><FONT COLOR="white"><B>BankingException</B></FONT></TD></TR>
+  <TR><TD ALIGN="LEFT">(extends System.Exception)</TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ BankingException(message : string)</TD></TR>
+</TABLE>>];
+
+    InsufficientFundsException [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFF0F0" COLOR="#999999">
+  <TR><TD BGCOLOR="#8B0000" ALIGN="CENTER"><FONT COLOR="white"><B>InsufficientFundsException</B></FONT></TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ InsufficientFundsException(message : string)</TD></TR>
+</TABLE>>];
+
+    OverdraftLimitExceededException [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#FFF0F0" COLOR="#999999">
+  <TR><TD BGCOLOR="#8B0000" ALIGN="CENTER"><FONT COLOR="white"><B>OverdraftLimitExceededException</B></FONT></TD></TR>
+  <TR><TD BGCOLOR="#DAA520" HEIGHT="4"></TD></TR>
+  <TR><TD ALIGN="LEFT">+ OverdraftLimitExceededException(message : string)</TD></TR>
+</TABLE>>];
+
+    /* ---------- Relationships ---------- */
+
+    Person -> Customer [dir=back, arrowtail=empty];
+    Customer -> StaffCustomer [dir=back, arrowtail=empty];
+
+    Account -> EverydayAccount [dir=back, arrowtail=empty];
+    Account -> InvestmentAccount [dir=back, arrowtail=empty];
+    Account -> OmniAccount [dir=back, arrowtail=empty];
+
+    Customer -> Account [dir=back, arrowtail=diamond, label="owns 1..3", color="#333333"];
+
+    CustomerController -> Customer [dir=back, arrowtail=diamond, label="manages 0..*", color="#333333"];
+    CustomerController -> Account [style=dashed, arrowhead=vee, label="attaches (AddAccountToCustomer)", color="#555555", fontsize=10];
+
+    Account -> BankingException [style=dashed, arrowhead=vee, label="throws", color="#8B0000", fontsize=11];
+    BankingException -> InsufficientFundsException [dir=back, arrowtail=empty];
+    BankingException -> OverdraftLimitExceededException [dir=back, arrowtail=empty];
+
+    /* ---------- Layout hints ---------- */
+    { rank=same; Person; Account; }
+    { rank=same; Customer; CustomerController; BankingException; }
+    { rank=same; StaffCustomer; EverydayAccount; InvestmentAccount; OmniAccount; InsufficientFundsException; OverdraftLimitExceededException; }
+}
