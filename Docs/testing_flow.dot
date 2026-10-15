@@ -1,0 +1,34 @@
+digraph TestingFlow {
+    graph [rankdir=TB, bgcolor="white", fontname="Segoe UI", nodesep=0.5, ranksep=0.6];
+    node [fontname="Segoe UI", fontsize=13];
+    edge [fontname="Segoe UI", fontsize=12, color="#333333"];
+
+    start [shape=oval, style=filled, fillcolor="#000080", fontcolor=white, label="Withdraw(amount, feeDiscountRate)"];
+
+    check1 [shape=diamond, style=filled, fillcolor="#FFFBEF", label="amount <= 0 ?"];
+
+    failValidation [shape=box, style="rounded,filled", fillcolor="#EDEDED", color="#777777",
+        label="FAIL\nStatus: \"Amount must be\ngreater than zero\"\n(no exception)"];
+
+    check2 [shape=diamond, style=filled, fillcolor="#FFFBEF", label="amount <= available\nfunds (balance\n+ overdraft limit) ?"];
+
+    happy [shape=box, style="rounded,filled", fillcolor="#E6F4EA", color="#2E7D32",
+        label="HAPPY PATH\nBalance updated\nStatus: \"Withdrawal Successful\""];
+
+    chargeFee [shape=box, style="rounded,filled", fillcolor="#FDEBEC", color="#8B0000",
+        label="Charge failed-transaction fee\n(if the account type has one)"];
+
+    throwEx [shape=box, style="rounded,filled", fillcolor="#FDEBEC", color="#8B0000",
+        label="FAILURE PATH\nthrow InsufficientFundsException /\nOverdraftLimitExceededException\n(account-specific message)"];
+
+    caught [shape=box, style="rounded,filled", fillcolor="#EFF3FF", color="#000080",
+        label="Customer.PerformWithdrawal\ncatches BankingException,\nreturns ex.Message as the\nstatus string shown in the GUI"];
+
+    start -> check1;
+    check1 -> failValidation [label="Yes"];
+    check1 -> check2 [label="No"];
+    check2 -> happy [label="Yes"];
+    check2 -> chargeFee [label="No"];
+    chargeFee -> throwEx;
+    throwEx -> caught;
+}
