@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BankSprint1.Exceptions;
 
 namespace BankSprint1.Models
 {
@@ -68,11 +69,23 @@ namespace BankSprint1.Models
         /// Withdraws from the given account, passing this customer's fee discount
         /// rate down into the Account so any failed-transaction fee is calculated
         /// with the correct staff/regular discount applied.
+        /// Sprint 2: Account.Withdraw now throws a BankingException for any
+        /// funds/overdraft business-rule failure. It is caught here so the rest of
+        /// the application (the GUI included) keeps working with a simple returned
+        /// status string, exactly as it did in Sprint 1 - only this class needs to
+        /// know that an exception was involved.
         /// </summary>
         public string PerformWithdrawal(Account account, decimal amount)
         {
-            account.Withdraw(amount, FeeDiscountRate);
-            return account.LastTransactionStatus;
+            try
+            {
+                account.Withdraw(amount, FeeDiscountRate);
+                return account.LastTransactionStatus;
+            }
+            catch (BankingException ex)
+            {
+                return ex.Message;
+            }
         }
 
         public override string GetProfileSummary()

@@ -65,7 +65,14 @@ namespace BankSprint1.Models
         /// implementation. feeDiscountRate is supplied by the owning Customer
         /// (1.0 for regular customers, 0.5 for staff) so the discount rule is applied
         /// here in the domain layer, not in the GUI.
+        /// Sprint 2: a $0/negative amount is still handled as a simple failed status
+        /// (input validation), but a withdrawal that breaks a business rule - exceeding
+        /// the balance, or exceeding an overdraft limit - throws a BankingException
+        /// (see the Exceptions namespace) with a message specific to the account type.
         /// </summary>
+        /// <exception cref="BankSprint1.Exceptions.BankingException">
+        /// Thrown when the withdrawal exceeds the funds available to this account.
+        /// </exception>
         public abstract void Withdraw(decimal amount, decimal feeDiscountRate);
 
         /// <summary>

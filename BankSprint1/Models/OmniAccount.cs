@@ -1,3 +1,5 @@
+using BankSprint1.Exceptions;
+
 namespace BankSprint1.Models
 {
     /// <summary>
@@ -66,10 +68,16 @@ namespace BankSprint1.Models
             else
             {
                 // Even the overdraft limit was exceeded: withdrawal fails, fixed fee
-                // charged, discounted for Bank Staff via feeDiscountRate.
+                // charged, discounted for Bank Staff via feeDiscountRate, then the
+                // failure is raised as a custom exception naming the overdraft limit.
                 decimal fee = failedTransactionFee * feeDiscountRate;
                 balance -= fee;
+                string message = $"Omni Account {AccountNumber}: overdraft limit exceeded. " +
+                    $"This account allows an overdraft of up to {overdraftLimit:C}, but the requested withdrawal of {amount:C} " +
+                    $"exceeds the available funds of {availableFunds:C}. A failed-transaction fee of {fee:C} has been charged. " +
+                    $"New balance: {balance:C}.";
                 LastTransactionStatus = $"Withdrawal Failed - Overdraft Limit Exceeded - Fee Charged: {fee:C}";
+                throw new OverdraftLimitExceededException(message);
             }
         }
 

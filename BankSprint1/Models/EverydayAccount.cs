@@ -1,3 +1,5 @@
+using BankSprint1.Exceptions;
+
 namespace BankSprint1.Models
 {
     /// <summary>
@@ -32,7 +34,12 @@ namespace BankSprint1.Models
             else
             {
                 // No overdraft and no fee for this account type - it simply fails.
+                // Sprint 2: this is now a business-rule failure, so it is raised as
+                // a custom exception rather than just recorded in LastTransactionStatus.
+                string message = $"Everyday Account {AccountNumber}: insufficient funds. " +
+                    $"This account has no overdraft facility, so you cannot withdraw more than the current balance of {balance:C}.";
                 LastTransactionStatus = "Withdrawal Failed - Insufficient Funds";
+                throw new InsufficientFundsException(message);
             }
         }
 

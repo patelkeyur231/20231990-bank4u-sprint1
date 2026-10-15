@@ -1,3 +1,5 @@
+using BankSprint1.Exceptions;
+
 namespace BankSprint1.Models
 {
     /// <summary>
@@ -47,10 +49,17 @@ namespace BankSprint1.Models
             else
             {
                 // No overdraft allowed: the withdrawal fails and a fixed fee is
-                // charged, discounted for Bank Staff via feeDiscountRate.
+                // charged, discounted for Bank Staff via feeDiscountRate, then the
+                // failure is raised as a custom exception with an account-specific
+                // message (the fee is applied first so the balance already
+                // reflects it by the time anything catches the exception).
                 decimal fee = failedTransactionFee * feeDiscountRate;
                 balance -= fee;
+                string message = $"Investment Account {AccountNumber}: insufficient funds. " +
+                    $"This account does not permit an overdraft, so a failed-transaction fee of {fee:C} has been charged. " +
+                    $"New balance: {balance:C}.";
                 LastTransactionStatus = $"Withdrawal Failed - Insufficient Funds - Fee Charged: {fee:C}";
+                throw new InsufficientFundsException(message);
             }
         }
 
