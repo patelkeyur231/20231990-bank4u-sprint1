@@ -119,7 +119,7 @@ Docs/
 
 ## GitHub
 
-Repository: https://github.com/keyur232/20231990-bank4u-sprint1
+Repository: https://github.com/patelkeyur231/20231990-bank4u-sprint1
 
 The Sprint 1 commit history stays in place; Sprint 2 work is committed
 separately on top of it (see the commit log for the staged, feature-by-
